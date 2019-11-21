@@ -9,6 +9,7 @@ public class User {
     @Id
 //    @GeneratedValue(strategy = GenerationType.AUTO) // issue with H2 - after inserts in data.sql, it does not know about the next available id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private Long id;
 
     @Column
