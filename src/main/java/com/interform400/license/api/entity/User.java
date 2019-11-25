@@ -39,4 +39,12 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
+
+    public Partner getPartner() {
+        return partner;
+    }
+
+    public void setPartner(Partner partner) {
+        this.partner = partner;
+    }
 }
