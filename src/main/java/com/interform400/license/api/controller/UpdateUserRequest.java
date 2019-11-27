@@ -3,12 +3,13 @@ package com.interform400.license.api.controller;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @JsonSerialize
-public class CreateUserRequest {
+@SuppressWarnings("unused")
+public class UpdateUserRequest {
 
     private final String username;
     private final Long partnerId;
 
-    public CreateUserRequest(String username, Long partnerId) {
+    public UpdateUserRequest(String username, Long partnerId) {
         this.username = username;
         this.partnerId = partnerId;
     }
@@ -17,8 +18,7 @@ public class CreateUserRequest {
         return username;
     }
 
-    Long getPartnerId() {
+    public Long getPartnerId() {
         return partnerId;
     }
-
 }

@@ -3,6 +3,7 @@ package com.interform400.license.api.entity;
 import javax.persistence.*;
 
 @Entity
+@SuppressWarnings("unused")
 public class Customer {
 
     @Id
@@ -14,6 +15,7 @@ public class Customer {
 
 
     public Customer() {
+        // no op
     }
 
 

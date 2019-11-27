@@ -6,6 +6,9 @@ import com.interform400.license.api.repository.PartnerRepository;
 import com.interform400.license.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -25,11 +28,56 @@ public class UserController {
     }
 
 
-    @PostMapping("/create")
+    @GetMapping
+    @ResponseBody
+    public List<User> getAllUsers() {
+        List<User> result = new ArrayList<>();
+        Iterable<User> iterable = userRepository.findAll();
+        for (User user : iterable) {
+            setPartnerOnUser(user, getPartnerOfUser(user), true);
+            result.add(user);
+        }
+        return result;
+    }
+
+    private Optional<Partner> getPartnerOfUser(User user) {
+        return partnerRepository.findById(user.getPartner().getId());
+    }
+
+
+    @GetMapping("/{id}")
+    public User getUser(@PathVariable Long id) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            setPartnerOnUser(user, getPartnerOfUser(user), true);
+            return user;
+        }
+        else {
+            throw new NotFoundException("user", id.toString());
+        }
+    }
+
+    private void setPartnerOnUser(User user, Optional<Partner> optionalPartner, boolean fromDatabase) {
+        if (optionalPartner.isPresent()) {
+            user.setPartner(optionalPartner.get());
+        }
+        else {
+            if (fromDatabase) {
+                throw new ServerSideException("Corrupt Data - no partner for user id:" + user.getId());
+            }
+            else {
+                throw new NotFoundException("partner", null);
+            }
+        }
+    }
+
+
+    @PostMapping
     @ResponseBody
     public User createUser(@RequestBody CreateUserRequest createUserRequest) {
         User user = new User();
-        user.setUsername(createUserRequest.getUserName());
+        user.setUsername(createUserRequest.getUsername());
         Optional<Partner> partner = partnerRepository.findById(createUserRequest.getPartnerId());
         if (partner.isPresent()) {
             user.setPartner(partner.get());
@@ -40,7 +88,7 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("/extra/{id}") // does the same as DELETE(/id)
+    @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable Long id) {
         Optional<User> user = userRepository.findById(id);
         if (user.isPresent()) {
@@ -50,5 +98,24 @@ public class UserController {
             throw new NotFoundException("user", id.toString());
         }
     }
+
+
+    @PatchMapping("/{id}")
+    @ResponseBody
+    public User updateUser(@PathVariable Long id, @RequestBody UpdateUserRequest updateUserRequest) {
+        Optional<User> optionalUser = userRepository.findById(id);
+
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            user.setUsername(updateUserRequest.getUsername());
+            Optional<Partner> optionalPartner = partnerRepository.findById(updateUserRequest.getPartnerId());
+            setPartnerOnUser(user, optionalPartner, false);
+            return userRepository.save(user);
+        }
+        else {
+            throw new NotFoundException("user", id.toString());
+        }
+    }
+
 
 }

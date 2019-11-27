@@ -3,11 +3,10 @@ package com.interform400.license.api.entity;
 import javax.persistence.*;
 
 @Entity
+@SuppressWarnings("unused")
 public class User {
 
-
     @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO) // issue with H2 - after inserts in data.sql, it does not know about the next available id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long id;
@@ -16,8 +15,8 @@ public class User {
     private String username;
 
     public User() {
+        // no-op
     }
-
 
     @ManyToOne
     @JoinColumn(name = "partnerid")

@@ -8,9 +8,11 @@ import java.util.List;
  * The partner entity
  */
 @Entity
+@SuppressWarnings("unused")
 public class Partner {
 
     public Partner() {
+        // no-op
     }
 
     @Id
