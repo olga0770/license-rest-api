@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -76,6 +77,8 @@ public class UserController {
     @PostMapping
     @ResponseBody
     public User createUser(@RequestBody CreateUserRequest createUserRequest) {
+        Logger.getLogger(getClass().getName()).info("calling createUser with request:" + createUserRequest);
+
         User user = new User();
         user.setUsername(createUserRequest.getUsername());
         Optional<Partner> partner = partnerRepository.findById(createUserRequest.getPartnerId());
