@@ -4,23 +4,27 @@ import com.interform400.license.api.entity.Partner;
 import com.interform400.license.api.entity.User;
 import com.interform400.license.api.repository.PartnerRepository;
 import com.interform400.license.api.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Logger;
-
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/users")
+@SuppressWarnings("squid:S3457")
 public class UserController {
 
     private final UserRepository userRepository;
 
     private final PartnerRepository partnerRepository;
+
+    Logger logger = LoggerFactory.getLogger(UserController.class);
+
 
     @Autowired
     public UserController(UserRepository userRepository, PartnerRepository partnerRepository) {
@@ -77,7 +81,7 @@ public class UserController {
     @PostMapping
     @ResponseBody
     public User createUser(@RequestBody CreateUserRequest createUserRequest) {
-        Logger.getLogger(getClass().getName()).info("calling createUser with request:" + createUserRequest);
+        logger.info("calling createUser:" + createUserRequest.getUsername() + ":" + createUserRequest.getPartnerId());
 
         User user = new User();
         user.setUsername(createUserRequest.getUsername());
