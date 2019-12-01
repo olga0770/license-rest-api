@@ -14,6 +14,10 @@ public class User {
     @Column
     private String username;
 
+    @Column
+    private String password;
+
+
     public User() {
         // no-op
     }
@@ -45,5 +49,13 @@ public class User {
 
     public void setPartner(Partner partner) {
         this.partner = partner;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
