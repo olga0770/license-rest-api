@@ -10,11 +10,14 @@ values (2, 'Honda');
 
 
 
-insert into user (id, username, partnerid)
-values (1, 'olga', 1);
+insert into user (id, username, password, partnerid)
+values (1, 'olga', 'password', 1);
 
-insert into user (id, username, partnerid)
-values (2, 'ejner', 1);
+insert into user (id, username, password, partnerid)
+values (2, 'ejner', 'password', 1);
+
+insert into user (id, username, password, partnerid)
+values (3, 'user', 'password', 1);
 
 
 insert into customer (id, name)

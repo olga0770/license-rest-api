@@ -8,10 +8,10 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+    @Column(nullable=false, updatable = false)
     private Long id;
 
-    @Column
+    @Column(nullable=false, unique = true, length=255)
     private String username;
 
     @Column

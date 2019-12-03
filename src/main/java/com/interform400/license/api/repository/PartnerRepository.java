@@ -1,15 +1,14 @@
 package com.interform400.license.api.repository;
 
 import com.interform400.license.api.entity.Partner;
-import org.springframework.data.repository.PagingAndSortingRepository;
+import com.interform400.license.api.entity.User;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 /**
  * Repository of partners
  */
-public interface PartnerRepository extends PagingAndSortingRepository<Partner, Long> {
-    @Override
-    Iterable<Partner> findAll();
-    long count();
-
-    Iterable<Partner> findAllByCompanyNameContains(String search);
+@Repository
+public interface PartnerRepository extends CrudRepository<Partner, Long> {
+    Partner findAllByCompanyName(String companyName);
 }

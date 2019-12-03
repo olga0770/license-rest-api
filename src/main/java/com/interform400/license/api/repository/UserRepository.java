@@ -1,15 +1,16 @@
 package com.interform400.license.api.repository;
 
 import com.interform400.license.api.entity.User;
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 
 /**
  * Repository of users
  */
-public interface UserRepository extends PagingAndSortingRepository<User, Long> {
-    @Override
-    Iterable<User> findAll();
-    long count();
+
+@Repository
+public interface UserRepository extends CrudRepository<User, Long> {
+    User findAllByUsername(String username);
 
 }

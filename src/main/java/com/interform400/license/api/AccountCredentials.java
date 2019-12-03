@@ -2,15 +2,15 @@ package com.interform400.license.api;
 
 public class AccountCredentials {
 
-    private String userName;
+    private String username;
     private String password;
 
     public String getUsername() {
-        return userName;
+        return username;
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
+        this.username = username;
     }
 
     public String getPassword() {
