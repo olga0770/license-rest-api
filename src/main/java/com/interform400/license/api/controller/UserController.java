@@ -86,6 +86,16 @@ public class UserController {
 
         User user = new User();
         user.setUsername(createUserRequest.getUsername());
+        user.setPassword(createUserRequest.getPassword());
+        user.setFirstName(createUserRequest.getFirstName());
+        user.setLastName(createUserRequest.getLastName());
+        user.setEmail(createUserRequest.getEmail());
+        user.setPhone(createUserRequest.getPhone());
+        user.setAddress(createUserRequest.getAddress());
+        user.setZip(createUserRequest.getZip());
+        user.setCity(createUserRequest.getCity());
+        user.setCountry(createUserRequest.getCountry());
+
         Optional<Partner> partner = partnerRepository.findById(createUserRequest.getPartnerId());
         if (partner.isPresent()) {
             user.setPartner(partner.get());
@@ -116,6 +126,17 @@ public class UserController {
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             user.setUsername(updateUserRequest.getUsername());
+            user.setPassword(updateUserRequest.getPassword());
+            user.setFirstName(updateUserRequest.getFirstName());
+            user.setLastName(updateUserRequest.getLastName());
+            user.setEmail(updateUserRequest.getEmail());
+            user.setPhone(updateUserRequest.getPhone());
+            user.setAddress(updateUserRequest.getAddress());
+            user.setZip(updateUserRequest.getZip());
+            user.setCity(updateUserRequest.getCity());
+            user.setCountry(updateUserRequest.getCountry());
+
+
             Optional<Partner> optionalPartner = partnerRepository.findById(updateUserRequest.getPartnerId());
             setPartnerOnUser(user, optionalPartner, false);
             return userRepository.save(user);

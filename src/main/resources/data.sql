@@ -10,14 +10,14 @@ values (2, 'Honda');
 
 
 
-insert into user (id, username, password, partnerid)
-values (1, 'olga', 'password', 1);
+insert into user (id, username, password, partnerid, firstname, lastname, email, phone, address, zip, city, country)
+values (1, 'olyalo', 'password', 1, 'Olga', 'Batrakova', 'olga@gmail.com', '22334455', 'Taarbæk Strandvej 59L st tv', '2930', 'Klampenborg', 'Denmark');
 
-insert into user (id, username, password, partnerid)
-values (2, 'ejner', 'password', 1);
+insert into user (id, username, password, partnerid, firstname, lastname, email, phone, address, zip, city, country)
+values (2, 'ejbo', 'password', 1, 'Ejner', 'Borgbjerg', 'ejner@gmail.com', '22334455', 'Taarbæk Strandvej 59L st tv', '2930', 'Klampenborg', 'Denmark');
 
-insert into user (id, username, password, partnerid)
-values (3, 'user', 'password', 1);
+insert into user (id, username, password, partnerid, firstname, lastname, email, phone, address, zip, city, country)
+values (3, 'user', 'password', 1, 'FirstName', 'LastName', 'user@gmail.com', '22334455', 'Taarbæk Strandvej 59L st tv', '2930', 'Klampenborg', 'Denmark');
 
 
 insert into customer (id, name)
