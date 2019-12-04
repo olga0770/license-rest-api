@@ -21,7 +21,6 @@ import java.util.Optional;
 public class UserController {
 
     private final UserRepository userRepository;
-
     private final PartnerRepository partnerRepository;
 
     Logger logger = LoggerFactory.getLogger(UserController.class);
