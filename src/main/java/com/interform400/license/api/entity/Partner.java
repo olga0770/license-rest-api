@@ -25,7 +25,6 @@ public class Partner {
     private String companyName;
 
     @OneToMany(mappedBy = "partner")
-    @JsonIgnore
     private List<User> users;
 
     public Long getId() {
@@ -42,5 +41,13 @@ public class Partner {
 
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 }

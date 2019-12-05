@@ -34,12 +34,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 // Filter for the api/login requests
-                .addFilterBefore(new LoginFilter("/login",
-                                authenticationManager()),
-                        UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new LoginFilter("/login", authenticationManager()), UsernamePasswordAuthenticationFilter.class)
                 // Filter for other requests to check JWT in header
-                .addFilterBefore(new AuthenticationFilter(),
-                        UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(new AuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+        ;
     }
 
     @Bean

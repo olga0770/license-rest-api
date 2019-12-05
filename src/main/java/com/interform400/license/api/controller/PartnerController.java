@@ -1,8 +1,12 @@
 package com.interform400.license.api.controller;
 
 import com.interform400.license.api.entity.Partner;
+import com.interform400.license.api.entity.User;
 import com.interform400.license.api.exception.NotFoundException;
 import com.interform400.license.api.repository.PartnerRepository;
+import com.interform400.license.api.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,51 +15,23 @@ import java.util.List;
 import java.util.Optional;
 
 
-// @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/partners")
+@SuppressWarnings({"squid:S2629","squid:S3457"})
 public class PartnerController {
 
     private final PartnerRepository partnerRepository;
-    // private final UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    Logger logger = LoggerFactory.getLogger(PartnerController.class);
+
 
     @Autowired
-    public PartnerController(PartnerRepository partnerRepository) {
+    public PartnerController(PartnerRepository partnerRepository, UserRepository userRepository) {
         this.partnerRepository = partnerRepository;
-        // this.userRepository = userRepository;
+        this.userRepository = userRepository;
     }
-    // UserRepository userRepository
 
-
-
-//    @GetMapping
-//    @ResponseBody
-//    public List<Partner> getAllPartners() {
-//        List<Partner> result = new ArrayList<>();
-//        Iterable<Partner> iterable = partnerRepository.findAll();
-//        for (Partner partner : iterable) {
-//            setUsersOnPartner(partner, getUsersOfPartner(partner), true);
-//            result.add(partner);
-//        }
-//        return result;
-//    }
-//    private List<User> getUsersOfPartner(Partner partner) {
-//        return userRepository.findById(partner.getUsers().getId());
-//    }
-//
-//    private void setUsersOnPartner(Partner partner, List<User>, boolean fromDatabase) {
-//        if (listUsers.isPresent()) {
-//            partner.setUsers(optionalUser.get());
-//        }
-//        else {
-//            if (fromDatabase) {
-//                throw new ServerSideException("Corrupt Data - no partner for user id:" + partner.getId());
-//            }
-//            else {
-//                throw new NotFoundException("partner", null);
-//            }
-//        }
-//    }
 
     @GetMapping
     @ResponseBody
@@ -63,16 +39,26 @@ public class PartnerController {
         List<Partner> result = new ArrayList<>();
         Iterable<Partner> iterable = partnerRepository.findAll();
         for (Partner partner : iterable) {
+            // avoid a very large and not-needed response object
+            partner.setUsers(new ArrayList<>());
             result.add(partner);
         }
         return result;
     }
 
     @GetMapping("/{id}")
-    public Partner getUser(@PathVariable Long id) {
+    @ResponseBody
+    public Partner getPartner(@PathVariable Long id) {
+        logger.info("getPartner:" + id);
+
         Optional<Partner> optionalPartner = partnerRepository.findById(id);
         if (optionalPartner.isPresent()) {
-            return optionalPartner.get();
+            Partner result = optionalPartner.get();
+            // to prevent infinite recursion
+            for (User user: result.getUsers()) {
+                user.setPartner(null);
+            }
+            return result;
         } else {
             throw new NotFoundException("partner", id.toString());
         }
@@ -88,5 +74,20 @@ public class PartnerController {
             throw new NotFoundException("partner", id.toString());
         }
     }
+
+    @DeleteMapping("/delete_all_including_users/{id}")
+    public void deletePartnerWithRelations(@PathVariable Long id) {
+        Optional<Partner> partner = partnerRepository.findById(id);
+        if (partner.isPresent()) {
+            for (User user: partner.get().getUsers()) {
+                userRepository.deleteById(user.getId());
+            }
+            partnerRepository.deleteById(id);
+        }
+        else {
+            throw new NotFoundException("partner", id.toString());
+        }
+    }
+
 
 }
