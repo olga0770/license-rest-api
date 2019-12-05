@@ -16,9 +16,10 @@ public class CreateUserRequest {
     private final String zip;
     private final String city;
     private final String country;
+    private final String role;
 
 
-    public CreateUserRequest(String username, String password, Long partnerId, String firstName, String lastName, String email, String phone, String address, String zip, String city, String country) {
+    public CreateUserRequest(String username, String password, Long partnerId, String firstName, String lastName, String email, String phone, String address, String zip, String city, String country, String role) {
         this.username = username;
         this.partnerId = partnerId;
         this.password = password;
@@ -30,6 +31,7 @@ public class CreateUserRequest {
         this.zip = zip;
         this.city = city;
         this.country = country;
+        this.role = role;
     }
 
     String getUsername() {
@@ -58,5 +60,7 @@ public class CreateUserRequest {
     String getCity() { return city; }
 
     String getCountry() { return  country; }
+
+    String getRole() { return role; }
 
 }

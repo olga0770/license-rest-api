@@ -94,6 +94,7 @@ public class UserController {
         user.setZip(createUserRequest.getZip());
         user.setCity(createUserRequest.getCity());
         user.setCountry(createUserRequest.getCountry());
+        user.setRole(createUserRequest.getRole());
 
         Optional<Partner> partner = partnerRepository.findById(createUserRequest.getPartnerId());
         if (partner.isPresent()) {
