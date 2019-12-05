@@ -10,14 +10,14 @@ values (2, 'Honda');
 
 
 
-insert into user (id, username, password, partnerid, firstname, lastname, email, phone, address, zip, city, country)
-values (1, 'olyalo', 'password', 1, 'Olga', 'Batrakova', 'olga@gmail.com', '22334455', 'Taarbæk Strandvej 59L st tv', '2930', 'Klampenborg', 'Denmark');
+insert into user (id, username, password, partnerid, firstname, lastname, email, phone, address, zip, city, country, role)
+values (1, 'olyalo', '$2y$12$tmaDbmMcs.EsSkP1udVM9eyNLR9LyM4wNzPC8m7erVEGjktF3.hTm', 1, 'Olga', 'Batrakova', 'olga@gmail.com', '22334455', 'Taarbæk Strandvej 59L st tv', '2930', 'Klampenborg', 'Denmark', 'USER');
 
-insert into user (id, username, password, partnerid, firstname, lastname, email, phone, address, zip, city, country)
-values (2, 'ejbo', 'password', 1, 'Ejner', 'Borgbjerg', 'ejner@gmail.com', '22334455', 'Taarbæk Strandvej 59L st tv', '2930', 'Klampenborg', 'Denmark');
+insert into user (id, username, password, partnerid, firstname, lastname, email, phone, address, zip, city, country, role)
+values (2, 'ejbo', '$2y$12$tmaDbmMcs.EsSkP1udVM9eyNLR9LyM4wNzPC8m7erVEGjktF3.hTm', 1, 'Ejner', 'Borgbjerg', 'ejner@gmail.com', '22334455', 'Taarbæk Strandvej 59L st tv', '2930', 'Klampenborg', 'Denmark', 'USER');
 
-insert into user (id, username, password, partnerid, firstname, lastname, email, phone, address, zip, city, country)
-values (3, 'user', 'password', 1, 'FirstName', 'LastName', 'user@gmail.com', '22334455', 'Taarbæk Strandvej 59L st tv', '2930', 'Klampenborg', 'Denmark');
+insert into user (id, username, password, partnerid, firstname, lastname, email, phone, address, zip, city, country, role)
+values (3, 'user', '$2y$12$tmaDbmMcs.EsSkP1udVM9eyNLR9LyM4wNzPC8m7erVEGjktF3.hTm', 1, 'FirstName', 'LastName', 'user@gmail.com', '22334455', 'Taarbæk Strandvej 59L st tv', '2930', 'Klampenborg', 'Denmark', 'USER');
 
 
 insert into customer (id, name)

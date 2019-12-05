@@ -134,6 +134,7 @@ public class UserController {
             user.setZip(updateUserRequest.getZip());
             user.setCity(updateUserRequest.getCity());
             user.setCountry(updateUserRequest.getCountry());
+            // user.setPartner(updateUserRequest.getPartnerId());
 
 
             Optional<Partner> optionalPartner = partnerRepository.findById(updateUserRequest.getPartnerId());
