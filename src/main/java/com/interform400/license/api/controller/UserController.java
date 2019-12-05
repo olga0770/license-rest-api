@@ -2,6 +2,8 @@ package com.interform400.license.api.controller;
 
 import com.interform400.license.api.entity.Partner;
 import com.interform400.license.api.entity.User;
+import com.interform400.license.api.exception.NotFoundException;
+import com.interform400.license.api.exception.ServerSideException;
 import com.interform400.license.api.repository.PartnerRepository;
 import com.interform400.license.api.repository.UserRepository;
 import org.slf4j.Logger;
