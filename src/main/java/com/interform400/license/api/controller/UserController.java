@@ -6,12 +6,13 @@ import com.interform400.license.api.exception.NotFoundException;
 import com.interform400.license.api.exception.ServerSideException;
 import com.interform400.license.api.repository.PartnerRepository;
 import com.interform400.license.api.repository.UserRepository;
+import com.interform400.license.api.service.data.UserData;
+import com.interform400.license.api.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,44 +26,30 @@ public class UserController {
     private final UserRepository userRepository;
     private final PartnerRepository partnerRepository;
 
+    private final UserService userService;
+
     Logger logger = LoggerFactory.getLogger(UserController.class);
 
 
     @Autowired
-    public UserController(UserRepository userRepository, PartnerRepository partnerRepository) {
+    public UserController(UserRepository userRepository, PartnerRepository partnerRepository, UserService userService) {
         this.userRepository = userRepository;
         this.partnerRepository = partnerRepository;
+        this.userService = userService;
     }
 
 
     @GetMapping
     @ResponseBody
-    public List<User> getAllUsers() {
-        List<User> result = new ArrayList<>();
-        Iterable<User> iterable = userRepository.findAll();
-        for (User user : iterable) {
-            setPartnerOnUser(user, getPartnerOfUser(user), true);
-            result.add(user);
-        }
-        return result;
-    }
-
-    private Optional<Partner> getPartnerOfUser(User user) {
-        return partnerRepository.findById(user.getPartner().getId());
+    public List<UserData> getAllUsers() {
+        logger.info("getAllUsers()");
+        return userService.getUsers();
     }
 
 
     @GetMapping("/{id}")
-    public User getUser(@PathVariable Long id) {
-        Optional<User> optionalUser = userRepository.findById(id);
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            setPartnerOnUser(user, getPartnerOfUser(user), true);
-            return user;
-        }
-        else {
-            throw new NotFoundException("user", id.toString());
-        }
+    public UserData getUser(@PathVariable Long id) {
+        return userService.getUser(id);
     }
 
     private void setPartnerOnUser(User user, Optional<Partner> optionalPartner, boolean fromDatabase) {
@@ -112,13 +99,7 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable Long id) {
-        Optional<User> user = userRepository.findById(id);
-        if (user.isPresent()) {
-            userRepository.deleteById(id);
-        }
-        else {
-            throw new NotFoundException("user", id.toString());
-        }
+        userService.deleteUser(id);
     }
 
 
@@ -139,8 +120,6 @@ public class UserController {
             user.setZip(updateUserRequest.getZip());
             user.setCity(updateUserRequest.getCity());
             user.setCountry(updateUserRequest.getCountry());
-            // user.setPartner(updateUserRequest.getPartnerId());
-
 
             Optional<Partner> optionalPartner = partnerRepository.findById(updateUserRequest.getPartnerId());
             setPartnerOnUser(user, optionalPartner, false);
