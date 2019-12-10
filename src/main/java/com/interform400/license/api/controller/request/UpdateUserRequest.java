@@ -1,4 +1,4 @@
-package com.interform400.license.api.controller;
+package com.interform400.license.api.controller.request;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -18,6 +18,7 @@ public class UpdateUserRequest {
     private final String city;
     private final String country;
 
+
     public UpdateUserRequest(String username, String password, Long partnerId, String firstName, String lastName, String email, String phone, String address, String zip, String city, String country) {
         this.username = username;
         this.password = password;
@@ -32,29 +33,29 @@ public class UpdateUserRequest {
         this.country = country;
     }
 
-    String getUsername() {
+    public String getUsername() {
         return username;
     }
 
-    String getPassword() { return password; }
+    public String getPassword() { return password; }
 
     public Long getPartnerId() {
         return partnerId;
     }
 
-    String getFirstName() { return firstName; }
+    public String getFirstName() { return firstName; }
 
-    String getLastName() { return lastName; }
+    public String getLastName() { return lastName; }
 
-    String getEmail() { return email; }
+    public String getEmail() { return email; }
 
-    String getPhone() { return phone; }
+    public String getPhone() { return phone; }
 
-    String getAddress() { return address; }
+    public String getAddress() { return address; }
 
-    String getZip() { return zip; }
+    public String getZip() { return zip; }
 
-    String getCity() { return city; }
+    public String getCity() { return city; }
 
-    String getCountry() { return  country; }
+    public String getCountry() { return  country; }
 }

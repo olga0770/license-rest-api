@@ -1,5 +1,7 @@
 package com.interform400.license.api.service;
 
+import com.interform400.license.api.controller.request.CreateUserRequest;
+import com.interform400.license.api.controller.request.UpdateUserRequest;
 import com.interform400.license.api.entity.Partner;
 import com.interform400.license.api.entity.User;
 import com.interform400.license.api.exception.NotFoundException;
@@ -11,7 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +56,7 @@ public class UserService {
         return result;
     }
 
-    public void deleteUser(@PathVariable Long id) {
+    public void deleteUser(Long id) {
         Optional<User> user = userRepository.findById(id);
         if (user.isPresent()) {
             userRepository.deleteById(id);
@@ -66,7 +67,7 @@ public class UserService {
     }
 
 
-    public UserData getUser(@PathVariable Long id) {
+    public UserData getUser(Long id) {
         Optional<User> optionalUser = userRepository.findById(id);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
@@ -99,5 +100,56 @@ public class UserService {
         }
     }
 
+
+    public UserData createUser(CreateUserRequest createUserRequest) {
+        User user = new User();
+        user.setUsername(createUserRequest.getUsername());
+        user.setPassword(createUserRequest.getPassword());
+        user.setFirstName(createUserRequest.getFirstName());
+        user.setLastName(createUserRequest.getLastName());
+        user.setEmail(createUserRequest.getEmail());
+        user.setPhone(createUserRequest.getPhone());
+        user.setAddress(createUserRequest.getAddress());
+        user.setZip(createUserRequest.getZip());
+        user.setCity(createUserRequest.getCity());
+        user.setCountry(createUserRequest.getCountry());
+        user.setRole(createUserRequest.getRole());
+
+        Optional<Partner> partner = partnerRepository.findById(createUserRequest.getPartnerId());
+        if (partner.isPresent()) {
+            user.setPartner(partner.get());
+            return new UserData(userRepository.save(user));
+        }
+        else {
+            throw new NotFoundException("partner", createUserRequest.getPartnerId().toString());
+        }
+    }
+
+
+    public UserData updateUser(Long id, UpdateUserRequest updateUserRequest) {
+        Optional<User> optionalUser = userRepository.findById(id);
+
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            user.setUsername(updateUserRequest.getUsername());
+            user.setPassword(updateUserRequest.getPassword());
+            user.setFirstName(updateUserRequest.getFirstName());
+            user.setLastName(updateUserRequest.getLastName());
+            user.setEmail(updateUserRequest.getEmail());
+            user.setPhone(updateUserRequest.getPhone());
+            user.setAddress(updateUserRequest.getAddress());
+            user.setZip(updateUserRequest.getZip());
+            user.setCity(updateUserRequest.getCity());
+            user.setCountry(updateUserRequest.getCountry());
+            // user.setPartner(updateUserRequest.getPartnerId());
+
+            Optional<Partner> optionalPartner = partnerRepository.findById(updateUserRequest.getPartnerId());
+            setPartnerOnUser(user, optionalPartner, false);
+            return new UserData(userRepository.save(user));
+        }
+        else {
+            throw new NotFoundException("user", id.toString());
+        }
+    }
 
 }
