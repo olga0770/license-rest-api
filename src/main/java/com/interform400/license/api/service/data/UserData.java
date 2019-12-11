@@ -1,11 +1,10 @@
 package com.interform400.license.api.service.data;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.interform400.license.api.entity.Partner;
 import com.interform400.license.api.entity.User;
 
-
-@JsonSerialize
+/**
+ * Generic information for a user, POJO class.
+ */
 public class UserData {
 
     private final Long id;
@@ -13,13 +12,15 @@ public class UserData {
     private final String password;
     private final String firstName;
     private final String lastName;
-    private final Partner partner;
     private final String email;
-    private final  String phone;
+    private final String phone;
     private final String address;
     private final String zip;
     private final String city;
     private final String country;
+
+    private final Long partnerId;
+    private final String companyName;
 
 
     public UserData(User user) {
@@ -28,13 +29,14 @@ public class UserData {
         this.password = user.getPassword();
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
-        this.partner = user.getPartner();
         this.email = user.getEmail();
         this.phone = user.getPhone();
         this.address = user.getAddress();
         this.zip = user.getZip();
         this.city = user.getCity();
         this.country = user.getCountry();
+        this.partnerId = user.getPartner().getId();
+        this.companyName = user.getPartner().getCompanyName();
     }
 
     public Long getId() {
@@ -50,7 +52,6 @@ public class UserData {
     public String getLastName() {
         return lastName;
     }
-    public Partner getPartner() { return partner; }
     public String getEmail() { return email; }
     public String getPhone() { return phone; }
     public String getAddress() { return address; }
@@ -58,13 +59,30 @@ public class UserData {
     public String getCity() { return city; }
     public String getCountry() { return country; }
 
+    public Long getPartnerId() {
+        return partnerId;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
     @Override
     public String toString() {
         return "UserData{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
+                ", zip='" + zip + '\'' +
+                ", city='" + city + '\'' +
+                ", country='" + country + '\'' +
+                ", partnerId=" + partnerId +
+                ", companyName='" + companyName + '\'' +
                 '}';
     }
 }

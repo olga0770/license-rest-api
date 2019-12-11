@@ -2,6 +2,9 @@ package com.interform400.license.api.entity;
 
 import javax.persistence.*;
 
+/**
+ * The User database entity.
+ */
 @Entity
 @SuppressWarnings("unused")
 public class User {

@@ -14,7 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
+/**
+ * The Partner REST controller.
+ * Responsible for receiving requests from external HTTP clients, and deliver a response.
+ */
 @RestController
 @RequestMapping("/partners")
 @SuppressWarnings({"squid:S2629","squid:S3457"})

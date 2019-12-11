@@ -14,10 +14,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The User service class.
+ * Responsible for encapsulating the user data and make it available for different clients,
+ * e.g. REST controllers, HTML controllers, XML web services, etc.
+ */
 @Service
 public class UserService {
 
@@ -67,16 +73,20 @@ public class UserService {
     }
 
 
+    @NotNull
     public UserData getUser(Long id) {
+        final UserData result;
         Optional<User> optionalUser = userRepository.findById(id);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             setPartnerOnUser(user, getPartnerOfUser(user), true);
-            return new UserData(user);
+            result = new UserData(user);
         }
         else {
             throw new NotFoundException("user", id.toString());
         }
+        logger.info("getUser():result: " + result);
+        return result;
     }
 
 
@@ -141,7 +151,7 @@ public class UserService {
             user.setZip(updateUserRequest.getZip());
             user.setCity(updateUserRequest.getCity());
             user.setCountry(updateUserRequest.getCountry());
-            // user.setPartner(updateUserRequest.getPartnerId());
+
 
             Optional<Partner> optionalPartner = partnerRepository.findById(updateUserRequest.getPartnerId());
             setPartnerOnUser(user, optionalPartner, false);

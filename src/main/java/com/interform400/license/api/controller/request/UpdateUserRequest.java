@@ -19,6 +19,7 @@ public class UpdateUserRequest {
     private final String country;
 
 
+    @SuppressWarnings("squid:S00107")
     public UpdateUserRequest(String username, String password, Long partnerId, String firstName, String lastName, String email, String phone, String address, String zip, String city, String country) {
         this.username = username;
         this.password = password;

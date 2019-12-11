@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * The User REST controller.
+ * Responsible for receiving requests from external HTTP clients, and deliver a response.
+ */
 @RestController
 @RequestMapping("/users")
 @SuppressWarnings("squid:S3457")
@@ -42,13 +45,20 @@ public class UserController {
         for (UserData userData: users) {
             result.add(new UserDataResponse(userData));
         }
+
+        logger.info("convertToResponse():" + result);
+
         return result;
     }
 
 
     @GetMapping("/{id}")
     public UserDataResponse getUser(@PathVariable Long id) {
-        return new UserDataResponse(userService.getUser(id));
+        final UserDataResponse result = new UserDataResponse(userService.getUser(id));
+
+        logger.info("getUser():" + result);
+
+        return result;
     }
 
 

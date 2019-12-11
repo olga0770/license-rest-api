@@ -1,8 +1,13 @@
 package com.interform400.license.api.controller.response;
 
-import com.interform400.license.api.entity.Partner;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.interform400.license.api.service.data.UserData;
 
+/**
+ * User data response, used for JSON responses.
+ */
+@JsonSerialize
+@SuppressWarnings("unused")
 public class UserDataResponse {
 
     private Long id;
@@ -10,7 +15,6 @@ public class UserDataResponse {
     private String password;
     private String firstName;
     private String lastName;
-    private Partner partner;
     private String email;
     private String phone;
     private String address;
@@ -18,19 +22,23 @@ public class UserDataResponse {
     private String city;
     private String country;
 
+    private Long partnerId;
+    private String companyName;
+
     public UserDataResponse(UserData userData) {
         this.id = userData.getId();
         this.username = userData.getUsername();
         this.password = userData.getPassword();
         this.firstName = userData.getFirstName();
         this.lastName = userData.getLastName();
-        this.partner = userData.getPartner();
         this.email = userData.getEmail();
         this.phone = userData.getPhone();
         this.address = userData.getAddress();
         this.zip = userData.getZip();
         this.city = userData.getCity();
         this.country = userData.getCountry();
+        this.partnerId = userData.getPartnerId();
+        this.companyName = userData.getCompanyName();
     }
 
     public Long getId() {
@@ -63,14 +71,6 @@ public class UserDataResponse {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public Partner getPartner() {
-        return partner;
-    }
-
-    public void setPartner(Partner partner) {
-        this.partner = partner;
     }
 
     public String getEmail() {
@@ -127,5 +127,41 @@ public class UserDataResponse {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Long getPartnerId() {
+        return partnerId;
+    }
+
+    public void setPartnerId(Long partnerId) {
+        this.partnerId = partnerId;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+
+    @Override
+    public String toString() {
+        return "UserDataResponse{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
+                ", zip='" + zip + '\'' +
+                ", city='" + city + '\'' +
+                ", country='" + country + '\'' +
+                ", partnerId=" + partnerId +
+                ", companyName='" + companyName + '\'' +
+                '}';
     }
 }
