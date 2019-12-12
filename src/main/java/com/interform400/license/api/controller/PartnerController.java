@@ -1,10 +1,13 @@
 package com.interform400.license.api.controller;
 
+import com.interform400.license.api.controller.response.PartnerDataResponse;
 import com.interform400.license.api.entity.Partner;
 import com.interform400.license.api.entity.User;
 import com.interform400.license.api.exception.NotFoundException;
 import com.interform400.license.api.repository.PartnerRepository;
 import com.interform400.license.api.repository.UserRepository;
+import com.interform400.license.api.service.PartnerService;
+import com.interform400.license.api.service.data.PartnerData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,45 +29,39 @@ public class PartnerController {
     private final PartnerRepository partnerRepository;
     private final UserRepository userRepository;
 
+    private final PartnerService partnerService;
+
     Logger logger = LoggerFactory.getLogger(PartnerController.class);
 
 
     @Autowired
-    public PartnerController(PartnerRepository partnerRepository, UserRepository userRepository) {
+    public PartnerController(PartnerRepository partnerRepository, UserRepository userRepository, PartnerService partnerService) {
         this.partnerRepository = partnerRepository;
         this.userRepository = userRepository;
+        this.partnerService = partnerService;
     }
 
 
     @GetMapping
     @ResponseBody
-    public List<Partner> getAllPartners() {
-        List<Partner> result = new ArrayList<>();
-        Iterable<Partner> iterable = partnerRepository.findAll();
-        for (Partner partner : iterable) {
-            // avoid a very large and not-needed response object
-            partner.setUsers(new ArrayList<>());
-            result.add(partner);
+    public List<PartnerDataResponse> getAllPartners() {
+        logger.info("getAllPartners():");
+
+        List<PartnerDataResponse> result = new ArrayList<>();
+
+        for (PartnerData partnerData : partnerService.getAllPartners()) {
+            result.add(new PartnerDataResponse(partnerData));
         }
+
         return result;
     }
 
     @GetMapping("/{id}")
     @ResponseBody
-    public Partner getPartner(@PathVariable Long id) {
-        logger.info("getPartner:" + id);
+    public PartnerDataResponse getPartner(@PathVariable Long id) {
+        logger.info("getPartner():" + id);
 
-        Optional<Partner> optionalPartner = partnerRepository.findById(id);
-        if (optionalPartner.isPresent()) {
-            Partner result = optionalPartner.get();
-            // to prevent infinite recursion
-            for (User user: result.getUsers()) {
-                user.setPartner(null);
-            }
-            return result;
-        } else {
-            throw new NotFoundException("partner", id.toString());
-        }
+        return new PartnerDataResponse(partnerService.getPartner(id));
     }
 
     @DeleteMapping("/{id}")

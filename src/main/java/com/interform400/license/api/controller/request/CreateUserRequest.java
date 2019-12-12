@@ -20,7 +20,8 @@ public class CreateUserRequest {
 
 
     @SuppressWarnings("squid:S00107")
-    public CreateUserRequest(String username, String password, Long partnerId, String firstName, String lastName, String email, String phone, String address, String zip, String city, String country, String role) {
+    public CreateUserRequest(String username, String password, Long partnerId, String firstName, String lastName,
+                             String email, String phone, String address, String zip, String city, String country, String role) {
         this.username = username;
         this.partnerId = partnerId;
         this.password = password;

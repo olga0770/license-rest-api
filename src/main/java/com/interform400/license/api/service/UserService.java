@@ -96,8 +96,8 @@ public class UserService {
 
     private void setPartnerOnUser(User user, Optional<Partner> optionalPartner, boolean fromDatabase) {
         if (optionalPartner.isPresent()) {
-            Partner partner = optionalPartner.get();
-            partner.setUsers(null); // to avoid infinite recursion
+//            Partner partner = optionalPartner.get();
+//            partner.setUsers(null); // to avoid infinite recursion
             user.setPartner(optionalPartner.get());
         }
         else {
