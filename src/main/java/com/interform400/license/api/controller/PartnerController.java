@@ -1,11 +1,6 @@
 package com.interform400.license.api.controller;
 
 import com.interform400.license.api.controller.response.PartnerDataResponse;
-import com.interform400.license.api.entity.Partner;
-import com.interform400.license.api.entity.User;
-import com.interform400.license.api.exception.NotFoundException;
-import com.interform400.license.api.repository.PartnerRepository;
-import com.interform400.license.api.repository.UserRepository;
 import com.interform400.license.api.service.PartnerService;
 import com.interform400.license.api.service.data.PartnerData;
 import org.slf4j.Logger;
@@ -15,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * The Partner REST controller.
@@ -26,18 +20,13 @@ import java.util.Optional;
 @SuppressWarnings({"squid:S2629","squid:S3457"})
 public class PartnerController {
 
-    private final PartnerRepository partnerRepository;
-    private final UserRepository userRepository;
-
     private final PartnerService partnerService;
 
     Logger logger = LoggerFactory.getLogger(PartnerController.class);
 
 
     @Autowired
-    public PartnerController(PartnerRepository partnerRepository, UserRepository userRepository, PartnerService partnerService) {
-        this.partnerRepository = partnerRepository;
-        this.userRepository = userRepository;
+    public PartnerController(PartnerService partnerService) {
         this.partnerService = partnerService;
     }
 
@@ -64,29 +53,11 @@ public class PartnerController {
         return new PartnerDataResponse(partnerService.getPartner(id));
     }
 
-    @DeleteMapping("/{id}")
-    public void deletePartner(@PathVariable Long id) {
-        Optional<Partner> partner = partnerRepository.findById(id);
-        if (partner.isPresent()) {
-            partnerRepository.deleteById(id);
-        }
-        else {
-            throw new NotFoundException("partner", id.toString());
-        }
-    }
-
     @DeleteMapping("/delete-all-including-users/{id}")
     public void deletePartnerWithRelations(@PathVariable Long id) {
-        Optional<Partner> partner = partnerRepository.findById(id);
-        if (partner.isPresent()) {
-            for (User user: partner.get().getUsers()) {
-                userRepository.deleteById(user.getId());
-            }
-            partnerRepository.deleteById(id);
-        }
-        else {
-            throw new NotFoundException("partner", id.toString());
-        }
+        logger.info("deletePartnerWithRelations():" + id);
+
+        partnerService.deletePartnerWithRelations(id);
     }
 
 

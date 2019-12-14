@@ -4,6 +4,7 @@ import com.interform400.license.api.entity.Partner;
 import com.interform400.license.api.entity.User;
 import com.interform400.license.api.exception.NotFoundException;
 import com.interform400.license.api.repository.PartnerRepository;
+import com.interform400.license.api.repository.UserRepository;
 import com.interform400.license.api.service.data.PartnerData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,16 +22,19 @@ import java.util.Optional;
  * e.g. REST controllers, HTML controllers, XML web services, etc.
  */
 @Service
+@SuppressWarnings({"squid:S2629", "squid:S3457", "unused"})
 public class PartnerService {
 
     private final PartnerRepository partnerRepository;
+    private final UserRepository userRepository;
 
     Logger logger = LoggerFactory.getLogger(PartnerService.class);
 
 
     @Autowired
-    public PartnerService(PartnerRepository partnerRepository) {
+    public PartnerService(PartnerRepository partnerRepository, UserRepository userRepository) {
         this.partnerRepository = partnerRepository;
+        this.userRepository = userRepository;
     }
 
     public List<PartnerData> getAllPartners() {
@@ -45,22 +49,33 @@ public class PartnerService {
     }
 
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public PartnerData getPartner(Long id) {
         logger.info("getPartner():" + id);
 
         Optional<Partner> optionalPartner = partnerRepository.findById(id);
         if (optionalPartner.isPresent()) {
             Partner result = optionalPartner.get();
-
             result.getUsers();  // to ensure that we see the users in the result object (in case of lazy ORM)
-//            for (User user: result.getUsers()) {
-//                //user.setPartner(null);
-//            }
             return new PartnerData(result);
         }
         else {
             throw new NotFoundException("partner", id.toString());
         }
     }
+
+    public void deletePartnerWithRelations(Long id) {
+        Optional<Partner> partner = partnerRepository.findById(id);
+        if (partner.isPresent()) {
+            for (User user: partner.get().getUsers()) {
+                userRepository.deleteById(user.getId());
+            }
+            partnerRepository.deleteById(id);
+        }
+        else {
+            throw new NotFoundException("partner", id.toString());
+        }
+    }
+
 
 }

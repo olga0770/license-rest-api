@@ -29,3 +29,11 @@ build/
 
 ### VS Code ###
 .vscode/
+
+## GNU Global files
+GPATH
+GRTAGS
+GTAGS
+
+## Doxygen
+doxygen-output/
