@@ -1,5 +1,6 @@
 package com.interform400.license.api.service;
 
+import com.interform400.license.api.controller.request.CreatePartnerRequest;
 import com.interform400.license.api.entity.Partner;
 import com.interform400.license.api.entity.User;
 import com.interform400.license.api.exception.NotFoundException;
@@ -78,4 +79,11 @@ public class PartnerService {
     }
 
 
+    public PartnerData createPartner(CreatePartnerRequest createPartnerRequest) {
+        Partner partner = new Partner();
+        partner.setCompanyName(createPartnerRequest.getCompanyName());
+        partnerRepository.save(partner);
+
+        return new PartnerData(partner);
+    }
 }

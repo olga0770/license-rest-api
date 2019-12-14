@@ -1,6 +1,9 @@
 package com.interform400.license.api.controller;
 
+import com.interform400.license.api.controller.request.CreatePartnerRequest;
+import com.interform400.license.api.controller.request.CreateUserRequest;
 import com.interform400.license.api.controller.response.PartnerDataResponse;
+import com.interform400.license.api.controller.response.UserDataResponse;
 import com.interform400.license.api.service.PartnerService;
 import com.interform400.license.api.service.data.PartnerData;
 import org.slf4j.Logger;
@@ -58,6 +61,14 @@ public class PartnerController {
         logger.info("deletePartnerWithRelations():" + id);
 
         partnerService.deletePartnerWithRelations(id);
+    }
+
+    @PostMapping
+    @ResponseBody
+    public PartnerDataResponse createPartner(@RequestBody CreatePartnerRequest createPartnerRequest) {
+        logger.info("calling createPartner:" + createPartnerRequest.getCompanyName() + ":" + createPartnerRequest.getCompanyName());
+
+        return new PartnerDataResponse(partnerService.createPartner(createPartnerRequest));
     }
 
 
