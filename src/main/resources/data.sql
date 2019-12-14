@@ -8,6 +8,12 @@ values (1, 'Volvo');
 insert into partner (id, companyName)
 values (2, 'Honda');
 
+insert into partner (id, companyName)
+values (3, 'DHL');
+
+insert into partner (id, companyName)
+values (4, 'admin');
+
 
 
 insert into user (id, username, password, partnerid, firstname, lastname, email, phone, address, zip, city, country, role)
@@ -17,7 +23,7 @@ insert into user (id, username, password, partnerid, firstname, lastname, email,
 values (2, 'ejbo', '$2y$12$tmaDbmMcs.EsSkP1udVM9eyNLR9LyM4wNzPC8m7erVEGjktF3.hTm', 1, 'Ejner', 'Borgbjerg', 'ejner@gmail.com', '22334455', 'Taarbæk Strandvej 59L st tv', '2930', 'Klampenborg', 'Denmark', 'USER');
 
 insert into user (id, username, password, partnerid, firstname, lastname, email, phone, address, zip, city, country, role)
-values (3, 'user', '$2y$12$tmaDbmMcs.EsSkP1udVM9eyNLR9LyM4wNzPC8m7erVEGjktF3.hTm', 1, 'FirstName', 'LastName', 'user@gmail.com', '22334455', 'Taarbæk Strandvej 59L st tv', '2930', 'Klampenborg', 'Denmark', 'USER');
+values (3, 'admin', '$2y$12$kxojZ0aA/xdNU42KerOxvOfcJNGGmmM2kYjx2IKkDqhWkTNn.g/bC', 4, 'admin', 'admin', 'admin@gmail.com', '22334455', 'Taarbæk Strandvej 59L st tv', '2930', 'Klampenborg', 'Denmark', 'USER');
 
 
 insert into customer (id, name)

@@ -75,7 +75,7 @@ public class PartnerController {
         }
     }
 
-    @DeleteMapping("/delete_all_including_users/{id}")
+    @DeleteMapping("/delete-all-including-users/{id}")
     public void deletePartnerWithRelations(@PathVariable Long id) {
         Optional<Partner> partner = partnerRepository.findById(id);
         if (partner.isPresent()) {
