@@ -2,6 +2,7 @@ package com.interform400.license.api.entity;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ import java.util.List;
 public class Partner {
 
     public Partner() {
-        // no-op
+        users = new ArrayList<>();
     }
 
     @Id
