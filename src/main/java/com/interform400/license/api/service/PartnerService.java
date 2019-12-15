@@ -1,6 +1,6 @@
 package com.interform400.license.api.service;
 
-import com.interform400.license.api.controller.request.CreatePartnerRequest;
+import com.interform400.license.api.controller.request.CreateUpdatePartnerRequest;
 import com.interform400.license.api.entity.Partner;
 import com.interform400.license.api.entity.User;
 import com.interform400.license.api.exception.NotFoundException;
@@ -79,11 +79,27 @@ public class PartnerService {
     }
 
 
-    public PartnerData createPartner(CreatePartnerRequest createPartnerRequest) {
+    public PartnerData createPartner(CreateUpdatePartnerRequest createPartnerRequest) {
         Partner partner = new Partner();
         partner.setCompanyName(createPartnerRequest.getCompanyName());
         partnerRepository.save(partner);
-
         return new PartnerData(partner);
     }
+
+
+    public PartnerData updatePartner(Long id, CreateUpdatePartnerRequest updatePartnerRequest) {
+        Optional<Partner> optionalPartner = partnerRepository.findById(id);
+
+        if (optionalPartner.isPresent()) {
+            Partner partner = optionalPartner.get();
+            partner.setCompanyName(updatePartnerRequest.getCompanyName());
+            return new PartnerData(partnerRepository.save(partner));
+        }
+        else {
+            throw new NotFoundException("partner", id.toString());
+        }
+
+    }
+
+
 }

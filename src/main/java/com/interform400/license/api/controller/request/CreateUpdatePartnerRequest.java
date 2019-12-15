@@ -4,15 +4,15 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @JsonSerialize
 @SuppressWarnings("unused")
-public class CreatePartnerRequest {
+public class CreateUpdatePartnerRequest {
 
     private String companyName;
 
 
-    public CreatePartnerRequest() {
+    public CreateUpdatePartnerRequest() {
     }
 
-    public CreatePartnerRequest(String companyName) {
+    public CreateUpdatePartnerRequest(String companyName) {
         this.companyName = companyName;
     }
 

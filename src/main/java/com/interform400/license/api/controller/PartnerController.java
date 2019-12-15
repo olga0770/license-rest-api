@@ -1,9 +1,7 @@
 package com.interform400.license.api.controller;
 
-import com.interform400.license.api.controller.request.CreatePartnerRequest;
-import com.interform400.license.api.controller.request.CreateUserRequest;
+import com.interform400.license.api.controller.request.CreateUpdatePartnerRequest;
 import com.interform400.license.api.controller.response.PartnerDataResponse;
-import com.interform400.license.api.controller.response.UserDataResponse;
 import com.interform400.license.api.service.PartnerService;
 import com.interform400.license.api.service.data.PartnerData;
 import org.slf4j.Logger;
@@ -65,10 +63,16 @@ public class PartnerController {
 
     @PostMapping
     @ResponseBody
-    public PartnerDataResponse createPartner(@RequestBody CreatePartnerRequest createPartnerRequest) {
+    public PartnerDataResponse createPartner(@RequestBody CreateUpdatePartnerRequest createPartnerRequest) {
         logger.info("calling createPartner:" + createPartnerRequest.getCompanyName() + ":" + createPartnerRequest.getCompanyName());
 
         return new PartnerDataResponse(partnerService.createPartner(createPartnerRequest));
+    }
+
+    @PatchMapping("/{id}")
+    @ResponseBody
+    public PartnerDataResponse updatePartner(@PathVariable Long id, @RequestBody CreateUpdatePartnerRequest updatePartnerRequest) {
+        return new PartnerDataResponse(partnerService.updatePartner(id, updatePartnerRequest));
     }
 
 

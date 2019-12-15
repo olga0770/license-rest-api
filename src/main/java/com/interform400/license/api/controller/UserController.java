@@ -1,6 +1,6 @@
 package com.interform400.license.api.controller;
 
-import com.interform400.license.api.controller.request.CreateUserRequest;
+import com.interform400.license.api.controller.request.CreateUpdateUserRequest;
 import com.interform400.license.api.controller.request.UpdateUserRequest;
 import com.interform400.license.api.controller.response.UserDataResponse;
 import com.interform400.license.api.service.data.UserData;
@@ -64,7 +64,7 @@ public class UserController {
 
     @PostMapping
     @ResponseBody
-    public UserDataResponse createUser(@RequestBody CreateUserRequest createUserRequest) {
+    public UserDataResponse createUser(@RequestBody CreateUpdateUserRequest createUserRequest) {
         logger.info("calling createUser:" + createUserRequest.getUsername() + ":" + createUserRequest.getPartnerId());
 
         return new UserDataResponse(userService.createUser(createUserRequest));
@@ -78,7 +78,7 @@ public class UserController {
 
     @PatchMapping("/{id}")
     @ResponseBody
-    public UserDataResponse updateUser(@PathVariable Long id, @RequestBody UpdateUserRequest updateUserRequest) {
+    public UserDataResponse updateUser(@PathVariable Long id, @RequestBody CreateUpdateUserRequest updateUserRequest) {
         return new UserDataResponse(userService.updateUser(id, updateUserRequest));
     }
 

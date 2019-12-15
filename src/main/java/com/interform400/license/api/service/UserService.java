@@ -1,7 +1,6 @@
 package com.interform400.license.api.service;
 
-import com.interform400.license.api.controller.request.CreateUserRequest;
-import com.interform400.license.api.controller.request.UpdateUserRequest;
+import com.interform400.license.api.controller.request.CreateUpdateUserRequest;
 import com.interform400.license.api.entity.Partner;
 import com.interform400.license.api.entity.User;
 import com.interform400.license.api.exception.NotFoundException;
@@ -110,7 +109,7 @@ public class UserService {
     }
 
 
-    public UserData createUser(CreateUserRequest createUserRequest) {
+    public UserData createUser(CreateUpdateUserRequest createUserRequest) {
         User user = new User();
         user.setUsername(createUserRequest.getUsername());
         user.setPassword(createUserRequest.getPassword());
@@ -135,7 +134,7 @@ public class UserService {
     }
 
 
-    public UserData updateUser(Long id, UpdateUserRequest updateUserRequest) {
+    public UserData updateUser(Long id, CreateUpdateUserRequest updateUserRequest) {
         Optional<User> optionalUser = userRepository.findById(id);
 
         if (optionalUser.isPresent()) {

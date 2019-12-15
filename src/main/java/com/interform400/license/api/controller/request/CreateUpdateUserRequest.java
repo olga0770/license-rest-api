@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @JsonSerialize
 @SuppressWarnings("unused")
-public class CreateUserRequest {
+public class CreateUpdateUserRequest {
 
     private String username;
     private String password;
@@ -19,12 +19,12 @@ public class CreateUserRequest {
     private String country;
     private String role;
 
-    public CreateUserRequest() {
+    public CreateUpdateUserRequest() {
     }
 
     @SuppressWarnings("squid:S00107")
-    public CreateUserRequest(String username, String password, Long partnerId, String firstName, String lastName,
-                             String email, String phone, String address, String zip, String city, String country, String role) {
+    public CreateUpdateUserRequest(String username, String password, Long partnerId, String firstName, String lastName,
+                                   String email, String phone, String address, String zip, String city, String country, String role) {
         this.username = username;
         this.partnerId = partnerId;
         this.password = password;
