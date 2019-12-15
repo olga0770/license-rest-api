@@ -82,6 +82,11 @@ public class PartnerService {
     public PartnerData createPartner(CreateUpdatePartnerRequest createPartnerRequest) {
         Partner partner = new Partner();
         partner.setCompanyName(createPartnerRequest.getCompanyName());
+        partner.setAddress(createPartnerRequest.getAddress());
+        partner.setZip(createPartnerRequest.getZip());
+        partner.setCity(createPartnerRequest.getCity());
+        partner.setCountry(createPartnerRequest.getCountry());
+
         partnerRepository.save(partner);
         return new PartnerData(partner);
     }
@@ -93,6 +98,11 @@ public class PartnerService {
         if (optionalPartner.isPresent()) {
             Partner partner = optionalPartner.get();
             partner.setCompanyName(updatePartnerRequest.getCompanyName());
+            partner.setAddress(updatePartnerRequest.getAddress());
+            partner.setZip(updatePartnerRequest.getZip());
+            partner.setCity(updatePartnerRequest.getCity());
+            partner.setCountry(updatePartnerRequest.getCountry());
+
             return new PartnerData(partnerRepository.save(partner));
         }
         else {

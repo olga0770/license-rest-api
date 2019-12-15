@@ -2,17 +2,17 @@
 
 -- noinspection SqlDialectInspectionForFile
 
-insert into partner (id, companyName)
-values (1, 'Volvo');
+insert into partner (id, companyName, address, zip, city, country)
+values (1, 'Volvo', 'address', 'zip', 'city', 'country');
 
-insert into partner (id, companyName)
-values (2, 'Honda');
+insert into partner (id, companyName, address, zip, city, country)
+values (2, 'Honda', 'address', 'zip', 'city', 'country');
 
-insert into partner (id, companyName)
-values (3, 'DHL');
+insert into partner (id, companyName, address, zip, city, country)
+values (3, 'DHL', 'address', 'zip', 'city', 'country');
 
-insert into partner (id, companyName)
-values (4, 'admin');
+insert into partner (id, companyName, address, zip, city, country)
+values (4, 'admin', 'address', 'zip', 'city', 'country');
 
 
 
