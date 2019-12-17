@@ -11,6 +11,7 @@ import com.interform400.license.api.service.data.UserData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
@@ -32,6 +33,9 @@ public class UserService {
 
     @Autowired
     private PartnerRepository partnerRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
     Logger logger = LoggerFactory.getLogger(UserService.class);
@@ -112,7 +116,8 @@ public class UserService {
     public UserData createUser(CreateUpdateUserRequest createUserRequest) {
         User user = new User();
         user.setUsername(createUserRequest.getUsername());
-        user.setPassword(createUserRequest.getPassword());
+        user.setPassword(passwordEncoder.encode(createUserRequest.getPassword()));
+
         user.setFirstName(createUserRequest.getFirstName());
         user.setLastName(createUserRequest.getLastName());
         user.setEmail(createUserRequest.getEmail());
@@ -140,7 +145,9 @@ public class UserService {
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             user.setUsername(updateUserRequest.getUsername());
-            user.setPassword(updateUserRequest.getPassword());
+            // user.setPassword(updateUserRequest.getPassword());
+            user.setPassword(passwordEncoder.encode(updateUserRequest.getPassword()));
+
             user.setFirstName(updateUserRequest.getFirstName());
             user.setLastName(updateUserRequest.getLastName());
             user.setEmail(updateUserRequest.getEmail());

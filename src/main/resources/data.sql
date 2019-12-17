@@ -3,27 +3,27 @@
 -- noinspection SqlDialectInspectionForFile
 
 insert into partner (id, companyName, address, zip, city, country)
-values (1, 'Volvo', 'address', 'zip', 'city', 'country');
+values (1, 'IBM Danmark Aps', 'Prøvensvej 1', '2605', 'Brøndby', 'Danmark');
 
 insert into partner (id, companyName, address, zip, city, country)
-values (2, 'Honda', 'address', 'zip', 'city', 'country');
+values (2, 'HP Kontorer Denmark', 'Engholm Parkvej 8', '3450', 'Allerød', 'Danmark');
 
 insert into partner (id, companyName, address, zip, city, country)
-values (3, 'DHL', 'address', 'zip', 'city', 'country');
+values (3, 'Zebra', 'Hummeltoftevej 49', '2830', 'Virum', 'Danmark');
 
 insert into partner (id, companyName, address, zip, city, country)
-values (4, 'admin', 'address', 'zip', 'city', 'country');
+values (4, 'admin', 'Sejrøgade 11', '2100', 'København Ø', 'Danmark');
 
 
 
 insert into user (id, username, password, partnerid, firstname, lastname, email, phone, address, zip, city, country, role)
-values (1, 'olyalo', '$2y$12$tmaDbmMcs.EsSkP1udVM9eyNLR9LyM4wNzPC8m7erVEGjktF3.hTm', 1, 'Olga', 'Batrakova', 'olga@gmail.com', '22334455', 'Taarbæk Strandvej 59L st tv', '2930', 'Klampenborg', 'Denmark', 'USER');
+values (1, 'oscarnielsen', '$2y$12$tmaDbmMcs.EsSkP1udVM9eyNLR9LyM4wNzPC8m7erVEGjktF3.hTm', 1, 'Oscar', 'Nielsen', 'onilsen@gmail.com', '+4599887766', 'Amalienborg Slotsplads 5', '1257', 'København K', 'Danmark', 'USER');
 
 insert into user (id, username, password, partnerid, firstname, lastname, email, phone, address, zip, city, country, role)
-values (2, 'ejbo', '$2y$12$tmaDbmMcs.EsSkP1udVM9eyNLR9LyM4wNzPC8m7erVEGjktF3.hTm', 1, 'Ejner', 'Borgbjerg', 'ejner@gmail.com', '22334455', 'Taarbæk Strandvej 59L st tv', '2930', 'Klampenborg', 'Denmark', 'USER');
+values (2, 'josefineandersen', '$2y$12$tmaDbmMcs.EsSkP1udVM9eyNLR9LyM4wNzPC8m7erVEGjktF3.hTm', 1, 'Josefine', 'Andersen', 'jandersen@gmail.com', '+4555664433', 'Ryesgade 53', '2100', 'København', 'Danmark', 'USER');
 
 insert into user (id, username, password, partnerid, firstname, lastname, email, phone, address, zip, city, country, role)
-values (3, 'admin', '$2y$12$kxojZ0aA/xdNU42KerOxvOfcJNGGmmM2kYjx2IKkDqhWkTNn.g/bC', 4, 'admin', 'admin', 'admin@gmail.com', '22334455', 'Taarbæk Strandvej 59L st tv', '2930', 'Klampenborg', 'Denmark', 'USER');
+values (3, 'admin', '$2y$12$kxojZ0aA/xdNU42KerOxvOfcJNGGmmM2kYjx2IKkDqhWkTNn.g/bC', 4, 'Dorthe', 'Larsen', 'admin@gmail.com', '+4511223344', 'Sejrøgade 11', '2100', 'København Ø', 'Danmark', 'ADMIN');
 
 
 insert into customer (id, name)

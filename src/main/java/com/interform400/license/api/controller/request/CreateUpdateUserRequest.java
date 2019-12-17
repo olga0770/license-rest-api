@@ -8,7 +8,6 @@ public class CreateUpdateUserRequest {
 
     private String username;
     private String password;
-    private Long partnerId;
     private String firstName;
     private String lastName;
     private String email;
@@ -18,6 +17,7 @@ public class CreateUpdateUserRequest {
     private String city;
     private String country;
     private String role;
+    private Long partnerId;
 
     public CreateUpdateUserRequest() {
     }
@@ -26,7 +26,6 @@ public class CreateUpdateUserRequest {
     public CreateUpdateUserRequest(String username, String password, Long partnerId, String firstName, String lastName,
                                    String email, String phone, String address, String zip, String city, String country, String role) {
         this.username = username;
-        this.partnerId = partnerId;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -37,6 +36,7 @@ public class CreateUpdateUserRequest {
         this.city = city;
         this.country = country;
         this.role = role;
+        this.partnerId = partnerId;
     }
 
     public String getUsername() {
