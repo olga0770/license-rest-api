@@ -23,7 +23,7 @@ import java.util.Optional;
  * e.g. REST controllers, HTML controllers, XML web services, etc.
  */
 @Service
-@SuppressWarnings({"squid:S2629", "squid:S3457", "unused"})
+@SuppressWarnings({"squid:S1192", "squid:S2629", "squid:S3457", "unused"})
 public class PartnerService {
 
     private final PartnerRepository partnerRepository;

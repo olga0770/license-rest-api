@@ -9,7 +9,7 @@ public class AccountCredentials {
         return username;
     }
 
-    public void setUserName(String userName) {
+    public void setUsername(String username) {
         this.username = username;
     }
 

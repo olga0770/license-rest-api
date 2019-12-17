@@ -18,7 +18,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/users")
-@SuppressWarnings("squid:S3457")
+@SuppressWarnings({"squid:S3457","squid:S2629"})
 public class UserController {
 
     private final UserService userService;

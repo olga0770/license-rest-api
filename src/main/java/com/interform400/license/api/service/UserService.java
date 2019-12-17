@@ -145,7 +145,6 @@ public class UserService {
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             user.setUsername(updateUserRequest.getUsername());
-            // user.setPassword(updateUserRequest.getPassword());
             user.setPassword(passwordEncoder.encode(updateUserRequest.getPassword()));
 
             user.setFirstName(updateUserRequest.getFirstName());
